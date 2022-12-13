@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch } from '@nestjs/common';
 
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -26,7 +26,24 @@ export class UsersController {
   }
 
   @Get(':id')
-  show(@Param('id') id: string) {
+  show(@Param('id') id: number) {
     return this.usersService.showById(+id);
+  }
+  @Patch('update/:id')
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        email: {
+          type: 'string',
+        },
+        password: {
+          type: 'string',
+        },
+      },
+    },
+  })
+  update(@Param('id') id: number, @Body() body: any) {
+    return this.usersService.update(id, body);
   }
 }

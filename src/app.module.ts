@@ -5,10 +5,12 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 // import { AuthModule } from './auth/auth.module';
-import { User } from './users/user.entity';
+import { User } from './app/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { PokemonModule } from './pokemon/pokemon.module';
+import { Pokemon } from './app/entities/pokemon.entity';
 
-const entities = [User];
+const entities = [User, Pokemon];
 
 @Module({
   imports: [
@@ -27,7 +29,8 @@ const entities = [User];
     }),
     UsersModule,
     AuthModule,
-    // AuthModule,
+    PokemonModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

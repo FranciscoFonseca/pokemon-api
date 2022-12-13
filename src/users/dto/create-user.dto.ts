@@ -9,4 +9,7 @@ export class CreateUserDto {
 
   @IsNotEmpty()
   password: string;
+
+  team?: string;
+  box?: string;
 }

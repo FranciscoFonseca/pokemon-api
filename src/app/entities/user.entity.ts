@@ -8,6 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import { PokemonDto } from 'src/pokemon/dto/pokemon.dto';
 
 @Entity()
 export class User extends BaseEntity {
@@ -22,6 +23,11 @@ export class User extends BaseEntity {
   @Column()
   name: string;
 
+  @Column('json', { nullable: true })
+  box?: string;
+
+  @Column('json', { nullable: true })
+  team?: string;
   @Column()
   @CreateDateColumn()
   createdAt: Date;

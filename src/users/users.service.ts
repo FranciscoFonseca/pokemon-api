@@ -4,7 +4,7 @@ import {
   InternalServerErrorException,
 } from '@nestjs/common';
 
-import { User } from './user.entity';
+import { User } from '../app/entities/user.entity';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
@@ -57,11 +57,19 @@ export class UsersService {
       if (user) {
         throw new ConflictException('User already exists');
       }
-
+      const defaultPokemon = [
+        { id: 1, experience: 0, level: 1, attacks: [1, 2, 3, 4] },
+        { id: 4, experience: 0, level: 1, attacks: [1, 2, 3, 4] },
+        { id: 7, experience: 0, level: 1, attacks: [1, 2, 3, 4] },
+      ];
+      const test = JSON.parse(JSON.stringify(defaultPokemon));
+      console.log(JSON.parse(JSON.stringify(defaultPokemon)));
+      console.log(test[0]);
       const newUser: User = queryRunner.manager.create(User, {
         name: userDTO.name,
         email: userDTO.email,
         password: userDTO.password,
+        team: JSON.stringify(defaultPokemon),
       });
 
       const result = await queryRunner.manager.save(newUser);
@@ -70,22 +78,13 @@ export class UsersService {
 
       return result;
     } catch (exception) {
+      console.log(exception);
       await queryRunner.rollbackTransaction();
       throw new InternalServerErrorException();
     } finally {
       await queryRunner.release();
     }
   }
-  // async create(createUserDto: CreateUserDto) {
-  //   // const user = new User();
-  //   const user = User.create();
-
-  //   // const user = User.create();
-  //   await user.save();
-
-  //   delete user.password;
-  //   return user;
-  // }
 
   async showById(id: number): Promise<User> {
     const user = await this.findOne(id);
@@ -94,15 +93,35 @@ export class UsersService {
     return user;
   }
 
-  // async findById(id: number) {
-  //   return await User.findOne(id);
-  // }
-
   async findByEmail(email: string) {
     return await User.findOne({
       where: {
         email: email,
       },
     });
+  }
+  async update(id: number, userDTO: CreateUserDto) {
+    const response = new HttpResponse();
+    try {
+      const entity = await this.userRepository.findOneBy({ id });
+      if (entity) {
+        entity.name = userDTO.name;
+        entity.email = userDTO.email;
+        entity.password = userDTO.password;
+        entity.team = userDTO.team;
+        entity.box = userDTO.box;
+        await this.userRepository.save(entity);
+      }
+      response.success = !!entity;
+      response.message = !response.success ? 'Ops! Entity not found' : null;
+      response.data = entity ?? null;
+      response.statusCode = !entity
+        ? StatusCodeClientErrorEnum.ClientErrorNotFound
+        : StatusCodeSucessEnum.SuccessOK;
+    } catch (exception) {
+      ErrorHandlerWithForHttpResponse(response, exception);
+    } finally {
+    }
+    return response;
   }
 }
