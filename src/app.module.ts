@@ -9,11 +9,24 @@ import { User } from './app/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
 import { PokemonModule } from './pokemon/pokemon.module';
 import { Pokemon } from './app/entities/pokemon.entity';
-
+import { join } from 'path';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
+import { VideoModule } from './videos/video.module';
 const entities = [User, Pokemon];
 
 @Module({
   imports: [
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      typePaths: ['./**/*.graphql'],
+      debug: false,
+      playground: true,
+      driver: ApolloDriver,
+      subscriptions: {
+        'graphql-ws': true,
+        'subscriptions-transport-ws': true,
+      },
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -31,6 +44,7 @@ const entities = [User, Pokemon];
     AuthModule,
     PokemonModule,
     AuthModule,
+    VideoModule,
   ],
   controllers: [AppController],
   providers: [AppService],

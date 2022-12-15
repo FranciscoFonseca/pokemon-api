@@ -1,0 +1,46 @@
+type Video {
+  id: ID!
+  title: String!
+  url: String!
+  author: User!
+}
+
+type User {
+  id: ID!
+  name: String!
+}
+
+type Query {
+  videos: [Video!]!
+}
+
+input NewVideo {
+  title: String!
+  url: String!
+  userId: String!
+}
+
+type Mutation {
+  createVideo(input: NewVideo!): Video!
+}
+
+type Subscription {
+  videoAdded(title: String!): Video
+}
+type Chat {
+  id: Int!
+  from: String!
+  message: String!
+}
+
+type Query {
+  chats: [Chat]
+}
+
+type Mutation {
+  sendMessage(from: String!, message: String!): Chat
+}
+
+type Subscription {
+  messageSent: Chat
+}
