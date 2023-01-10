@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Video, User } from '../graphql';
+import { Video, User } from '../../graphql';
 import { CreateVideoDto } from './dto/create-video.dto';
 
 @Injectable()

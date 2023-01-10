@@ -1,4 +1,4 @@
-import { NewVideo } from '../../graphql';
+import { NewVideo } from '../../../graphql';
 import { IsNotEmpty } from 'class-validator';
 
 export class CreateVideoDto extends NewVideo {

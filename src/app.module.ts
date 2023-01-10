@@ -11,7 +11,7 @@ import { PokemonModule } from './models/pokemon/pokemon.module';
 import { Pokemon } from './models/pokemon/pokemon.entity';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { VideoModule } from './videos/video.module';
+import { VideoModule } from './models/battles/battle.module';
 const entities = [User, Pokemon];
 
 @Module({

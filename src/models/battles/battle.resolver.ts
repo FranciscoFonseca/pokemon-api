@@ -1,9 +1,9 @@
 import { UseGuards } from '@nestjs/common';
 import { Args, Mutation, Query, Resolver, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
-import { Video, Chat } from '../graphql';
-import { VideoGuard } from './video.guard';
-import { VideoService } from './video.service';
+import { Video, Chat } from '../../graphql';
+import { VideoGuard } from './battle.guard';
+import { VideoService } from './battle.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { from } from 'rxjs';
 const chats: { id: number; from: string; message: string }[] = [];
