@@ -3,7 +3,7 @@ import { Video, User } from '../../graphql';
 import { CreateVideoDto } from './dto/create-video.dto';
 
 @Injectable()
-export class VideoService {
+export class BattleService {
   private readonly videos: Video[] = [];
 
   create(videoDto: CreateVideoDto): Video {

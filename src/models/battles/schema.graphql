@@ -76,3 +76,13 @@ type Subscription {
 type Subscription {
   messageAdded(chatRoomId: ID!): Message!
 }
+
+
+type Mutation {
+    joinChatRoom(subscriber: Subscriber): Boolean
+}
+
+input Subscriber {
+  id: String
+  socket: String
+}
