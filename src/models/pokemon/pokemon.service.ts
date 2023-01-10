@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { DataSource, Repository } from 'typeorm';
 import { CreatePokemonDto } from './dto/create-pokemon.dto';
-import { Pokemon } from '../app/entities/pokemon.entity';
+import { Pokemon } from './pokemon.entity';
 
 @Injectable()
 export class PokemonService {

@@ -4,12 +4,12 @@ export class CreatePokemonDto {
   @IsString()
   name: string;
   @IsString()
-  type: number[];
+  type: string;
   @IsString()
   description: string;
   @IsString()
   image: string;
 
   @IsString()
-  region: number;
+  region: string;
 }

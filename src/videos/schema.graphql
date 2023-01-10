@@ -44,3 +44,35 @@ type Mutation {
 type Subscription {
   messageSent: Chat
 }
+
+type Lobby {
+  id: ID!
+  messages: [Message!]!
+}
+
+type Message {
+  id: ID!
+  text: String!
+  user: String!
+  createdAt: String!
+}
+
+type lobby {
+  id: ID!
+  messages: [Message!]!
+}
+
+type Query {
+  lobby(id: ID!): Lobby
+}
+
+type Mutation {
+  createLobby(id: ID!): Lobby
+}
+
+type Subscription {
+  lobbyCreated: Lobby
+}
+type Subscription {
+  messageAdded(chatRoomId: ID!): Message!
+}

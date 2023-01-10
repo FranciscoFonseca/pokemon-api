@@ -8,7 +8,6 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
-import { PokemonDto } from 'src/pokemon/dto/pokemon.dto';
 
 @Entity()
 export class User extends BaseEntity {

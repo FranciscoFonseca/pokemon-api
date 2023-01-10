@@ -18,7 +18,14 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "migration:generate": "typeorm migration:generate -n",
+    "migration:run": "typeorm migration:run",
+    "migration:revert": "typeorm migration:revert",
+    "migration:show": "typeorm migration:show",
+    "docker:build": "docker build -t mysql .",
+    "docker:run": "docker run -p 3306:3306 -d mysql",
+    "seeder:run": "node ./src/database/seeders/index.js"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.1.7",
@@ -33,6 +40,7 @@
     "@nestjs/swagger": "^6.1.4",
     "@nestjs/typeorm": "^9.0.1",
     "apollo-server-express": "^3.11.1",
+    "bcrypt": "^5.1.0",
     "bcryptjs": "^2.4.3",
     "class-validator": "^0.14.0",
     "graphql": "^16.6.0",

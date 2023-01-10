@@ -15,8 +15,8 @@ export class Pokemon extends BaseEntity {
   @Column({ unique: true })
   name: string;
 
-  @Column('simple-array', { nullable: true })
-  type: number[];
+  @Column()
+  type: string;
   @Column()
   description: string;
 
@@ -24,7 +24,7 @@ export class Pokemon extends BaseEntity {
   image: string;
 
   @Column()
-  region: number;
+  region: string;
 
   @Column()
   @CreateDateColumn()

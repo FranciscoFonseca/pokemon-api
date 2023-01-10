@@ -27,6 +27,16 @@ export class VideoResolvers {
     return this.chats;
   }
 
+  @Query()
+  lobby(id: number) {
+    return id;
+  }
+  @Mutation()
+  createLobby() {
+    const chatRoomId = chooseRandomChatRoom();
+    return chatRoomId;
+  }
+
   @Mutation('sendMessage')
   async sendMessage(from: any, message: any) {
     const chat = {
@@ -48,7 +58,21 @@ export class VideoResolvers {
     this.pubSub.publish('videoAdded', { videoAdded: video });
     return video;
   }
+  @Subscription()
+  lobbyCreated(id: number) {
+    const channel = `messageAdded${id}`;
+    const subscription = this.pubSub.asyncIterator(channel);
 
+    let subscriberCount = 0;
+    const subscriberFunction = () => {
+      subscriberCount++;
+      if (subscriberCount > 2) {
+        // Return an error or simply do not add the new subscriber
+        throw new Error('The lobby is full');
+      }
+    };
+    return this.pubSub.asyncIterator('LOBBY_CREATED');
+  }
   @Subscription((returns) => Video, {})
   videoAdded() {
     return this.pubSub.asyncIterator('videoAdded');
